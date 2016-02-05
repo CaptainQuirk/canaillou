@@ -7,7 +7,9 @@
             "email": "leonard.messier@gmail.com"
         }
     ],
-    "require": {},
+    "require": {
+        "maximebf/consolekit": ">=1.0.0"
+    },
     "autoload": {
         "psr-4": {
             "Canaillou\\": "src/Canaillou"
