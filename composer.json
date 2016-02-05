@@ -1,0 +1,16 @@
+{
+    "name": "captainquirk/canaillou",
+    "license": "WTFPL",
+    "authors": [
+        {
+            "name": "lmessier",
+            "email": "leonard.messier@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Canaillou\\": "src/Canaillou"
+        }
+    }
+}
