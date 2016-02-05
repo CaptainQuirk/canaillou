@@ -8,7 +8,8 @@
         }
     ],
     "require": {
-        "maximebf/consolekit": ">=1.0.0"
+        "maximebf/consolekit": ">=1.0.0",
+        "guzzlehttp/guzzle": "^6.1"
     },
     "autoload": {
         "psr-4": {
