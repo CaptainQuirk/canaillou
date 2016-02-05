@@ -9,4 +9,10 @@ class Canaillou
         $this->Driver = new $driverName();
     }
 
+    public function query($options)
+    {
+        $results = $this->Driver->query($options['feature'], [ $options['browser'], $options['version'] ]);
+
+        return $results;
+    }
 }

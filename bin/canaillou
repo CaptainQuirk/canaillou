@@ -5,3 +5,4 @@ require __DIR__.'/../src/bootstrap.php';
 use Canaillou\Console\Application;
 
 $application = new Application();
+$application->run();
