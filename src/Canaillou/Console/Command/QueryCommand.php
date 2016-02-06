@@ -39,14 +39,32 @@ class QueryCommand extends Command
 
     private function line($browser, $versions)
     {
-        $lineTpl    = "%s %s\n";
+        $lineTpl    = "         %s\n%s %s\n         %s\n\n";
         $versionStr = '';
+        $paddingTop = '';
+        $paddingBottom = '';
         foreach ($versions as $number => $feature) {
-            $color       = $this->getColor($feature);
+            $color           = $this->getColor($feature);
             $versionStr .= Colors::colorize($number, 'white', $color) . " ";
+            $versionStr     .= Colors::colorize(str_pad($number, 6, " ", STR_PAD_BOTH), 'white', $color) . " ";
+            $paddingTop     .= Colors::colorize("      " , 'white', $color) . " ";
+            $paddingBottom  .= Colors::colorize("      ", 'white', $color) . " ";
         }
 
-        echo sprintf($lineTpl, $browser, $versionStr);
+        $browser = str_pad($browser, 8, " ", STR_PAD_BOTH);
+
+        echo sprintf($lineTpl, $paddingTop, $browser, $versionStr, $paddingBottom);
+    }
+
+    private function formatNumber($number)
+    {
+        if (!preg_match('#[0-9]+\.[0-9]+-#', $number)) {
+            return $number;
+        }
+
+        $parts = explode('-', $number);
+
+        return end($parts);
     }
 
     private function getColor($featureSupport)
