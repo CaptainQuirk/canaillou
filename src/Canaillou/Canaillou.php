@@ -11,7 +11,10 @@ class Canaillou
 
     public function query($options)
     {
-        $results = $this->Driver->query($options['feature'], [ $options['browser'], $options['version'] ]);
+        $results = $this->Driver->query($options['feature'], [
+          'browser' => isset($options['browser']) ? $options['browser'] : null,
+          'version' => isset($options['version']) ? $options['version'] : null
+        ]);
 
         return $results;
     }
