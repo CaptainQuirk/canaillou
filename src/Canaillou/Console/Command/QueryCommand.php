@@ -45,7 +45,7 @@ class QueryCommand extends Command
         $paddingBottom = '';
         foreach ($versions as $number => $feature) {
             $color           = $this->getColor($feature);
-            $versionStr .= Colors::colorize($number, 'white', $color) . " ";
+            $number          = $this->formatNumber($number);
             $versionStr     .= Colors::colorize(str_pad($number, 6, " ", STR_PAD_BOTH), 'white', $color) . " ";
             $paddingTop     .= Colors::colorize("      " , 'white', $color) . " ";
             $paddingBottom  .= Colors::colorize("      ", 'white', $color) . " ";
