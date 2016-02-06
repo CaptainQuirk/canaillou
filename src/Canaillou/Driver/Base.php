@@ -11,8 +11,8 @@ abstract class Base
             throw new \Exception("\$item parameter is missing or empty");
         }
 
-        $data   = $this->get($item);
-        $result = $this->parse($data);
+        $data   = $this->get($item, $params);
+        $result = $this->parse($data, $params);
 
         return $result;
     }
