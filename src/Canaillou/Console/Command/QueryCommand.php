@@ -2,6 +2,7 @@
 namespace Canaillou\Console\Command;
 
 use ConsoleKit\Command;
+use ConsoleKit\Colors;
 use Canaillou\Canaillou;
 
 /**
@@ -31,7 +32,41 @@ class QueryCommand extends Command
         ]);
 
         $results = $this->Canaillou->query($options);
+        foreach ($results as $browser => $data) {
+            $this->line($browser, $data);
+        }
+    }
 
-        return $results;
+    private function line($browser, $versions)
+    {
+        $lineTpl    = "%s %s\n";
+        $versionStr = '';
+        foreach ($versions as $number => $feature) {
+            $color       = $this->getColor($feature);
+            $versionStr .= Colors::colorize($number, 'white', $color) . " ";
+        }
+
+        echo sprintf($lineTpl, $browser, $versionStr);
+    }
+
+    private function getColor($featureSupport)
+    {
+        $color = null;
+
+        switch ($featureSupport) {
+            case 'y':
+                $color = Colors::GREEN;
+                break;
+
+            case 'n':
+                $color = Colors::RED;
+                break;
+
+            default:
+                $color = Colors::YELLOW;
+                break;
+        }
+
+        return $color;
     }
 }
