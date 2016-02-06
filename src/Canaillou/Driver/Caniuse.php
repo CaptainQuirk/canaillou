@@ -35,23 +35,45 @@ class Caniuse extends Base implements DriverInterface
 
     public function parse($data, $filters)
     {
-        $browser = isset($filters['browser']) ? $filters['browser'] : null;
+        $items = array();
+        $i = 0;
+        foreach ($data['stats'] as $browser => $stats) {
+            if (isset($filters['browser']) && $browser !== $filters['browser']) {
+                continue;
+            }
 
-        if (is_null($browser)) {
-            return $data['stats'];
+            $items[$i] = array(
+                'name'  => $browser,
+                'items' => array()
+            );
+
+            foreach ($stats as $version => $value) {
+                if (isset($filters['version']) && $version != $filters['version']) {
+                    continue;
+                }
+
+                $items[$i]['items'][] = array(
+                    'label'   => $this->formatNumber($version),
+                    'value'   => $value === 'y' ? 1 : 0,
+                    'current' => false
+                );
+            }
+
+
+            $i++;
         }
 
-        $result = [ "{$browser}" => $data['stats']["{$browser}"] ];
-        $version = isset($filters['version']) ? $filters['version'] : null;
+        return $items;
+    }
 
-        if (is_null($version)) {
-            return $result;
+    private function formatNumber($number)
+    {
+        if (!preg_match('#[0-9]+\.[0-9]+-#', $number)) {
+            return $number;
         }
 
-        $result = [ "{$browser}" => [
-          $version => $result["{$browser}"][$version]
-        ]];
+        $parts = explode('-', $number);
 
-        return $result;
+        return end($parts);
     }
 }
