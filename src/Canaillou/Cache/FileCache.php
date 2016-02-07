@@ -40,6 +40,11 @@ class FileCache
     public static function store($key, $data)
     {
         $filename = "{$key}_{$data['id']}";
+
+        if ($data['type'] === 'json') {
+            $data['content'] = json_decode($data['content'], true);
+        }
+
         static::$fs->write($filename, serialize($data));
     }
 

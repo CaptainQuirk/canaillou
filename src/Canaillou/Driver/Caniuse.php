@@ -8,6 +8,8 @@ class Caniuse extends Base implements DriverInterface
 {
     use \Canaillou\Network\Downloadable;
 
+    public $dataType = 'json';
+
     public $baseUrl = 'https://raw.githubusercontent.com/Fyrd/caniuse/master/data.json';
 
     public function __construct() {}
