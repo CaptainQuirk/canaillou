@@ -9,7 +9,8 @@
     ],
     "require": {
         "maximebf/consolekit": ">=1.0.0",
-        "guzzlehttp/guzzle": "^6.1"
+        "guzzlehttp/guzzle": "^6.1",
+        "league/flysystem": "^1.0"
     },
     "autoload": {
         "psr-4": {

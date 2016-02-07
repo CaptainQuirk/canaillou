@@ -12,7 +12,8 @@ class Application
     public function run()
     {
         $console = new Console([
-            'Canaillou\Console\Command\QueryCommand'
+            'Canaillou\Console\Command\QueryCommand',
+            'Canaillou\Console\Command\FetchCommand'
         ]);
 
         $console->run();

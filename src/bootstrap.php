@@ -1,5 +1,7 @@
 <?php
 
+define('DS', DIRECTORY_SEPARATOR);
+
 function includeIfExists($file)
 {
     return file_exists($file) ? include $file : false;

@@ -3,35 +3,17 @@ namespace Canaillou\Driver;
 
 use Canaillou\Driver\Base;
 use Canaillou\Driver\DriverInterface;
-use GuzzleHttp\Client;
 
 class Caniuse extends Base implements DriverInterface
 {
-    public $baseUrl = 'https://raw.githubusercontent.com/Fyrd/caniuse/master/features-json';
+    use \Canaillou\Network\Downloadable;
+
+    public $name     = 'caniuse';
+    public $dataType = 'json';
+
+    public $baseUrl = 'https://raw.githubusercontent.com/Fyrd/caniuse/master/data.json';
 
     public function __construct() {}
-
-    public function get($feature = '', $params = array())
-    {
-        if (empty($feature)) {
-            throw new \Exception("Missing or empty feature parameter");
-        }
-
-        $url = $this->url($feature);
-
-        $client = new Client();
-        $res    = $client->request('GET', $url);
-        $data   = json_decode((string)$res->getBody(), true);
-
-        return $data;
-    }
-
-    public function url($feature = '', $params = array())
-    {
-       $url = "{$this->baseUrl}/{$feature}.json";
-
-       return $url;
-    }
 
     public function parse($data, $filters)
     {
@@ -95,5 +77,16 @@ class Caniuse extends Base implements DriverInterface
         $parts = explode('-', $number);
 
         return end($parts);
+    }
+
+    public function fetch($check)
+    {
+        if (!$check) {
+          $data = $this->download($this->baseUrl);
+        } else {
+          $data = $this->check($this->baseUrl);
+        }
+
+        return $data;
     }
 }
