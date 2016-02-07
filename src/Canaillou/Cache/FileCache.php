@@ -75,4 +75,26 @@ class FileCache
 
         return $valid;
     }
+
+    public static function read($key)
+    {
+        $instance = static::getInstance();
+
+        $items = scandir(static::$path);
+        $valid = false;
+        foreach ($items as $item) {
+            $fullPath = join(DS, array(static::$path, $item));
+            if (is_dir($fullPath)) {
+                continue;
+            }
+
+            if (preg_match("#^{$key}_[A-Za-z0-9]+$#", $item)) {
+                $content = unserialize(static::$fs->read($item));
+
+                break;
+            }
+        }
+
+        return $content['content'];
+    }
 }
