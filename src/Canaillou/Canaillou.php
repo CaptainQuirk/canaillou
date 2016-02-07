@@ -18,4 +18,11 @@ class Canaillou
 
         return $results;
     }
+
+    public function fetch()
+    {
+        $resource = $this->Driver->fetch();
+
+        return $resource;
+    }
 }

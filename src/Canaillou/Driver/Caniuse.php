@@ -8,6 +8,7 @@ class Caniuse extends Base implements DriverInterface
 {
     use \Canaillou\Network\Downloadable;
 
+    public $baseUrl = 'https://raw.githubusercontent.com/Fyrd/caniuse/master/data.json';
 
     public function __construct() {}
 
@@ -95,5 +96,12 @@ class Caniuse extends Base implements DriverInterface
         $parts = explode('-', $number);
 
         return end($parts);
+    }
+
+    public function fetch()
+    {
+        $data = $this->download($this->baseUrl);
+
+        return $data;
     }
 }
