@@ -28,8 +28,8 @@ class QueryCommand extends Command
             throw new \Exception("Missing or empty feature option");
         }
 
-        $formatterName = isset($options['format']) 
-            ? ucfirst($options['format']) 
+        $formatterName = isset($options['format'])
+            ? ucfirst($options['format'])
             : 'Table'
         ;
 
