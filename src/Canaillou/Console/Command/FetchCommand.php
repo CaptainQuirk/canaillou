@@ -24,7 +24,7 @@ class FetchCommand extends Command
             'source' => $source
         ]);
 
-        $resource = $this->Canaillou->fetch();
+        $resource = $this->Canaillou->fetch(true);
 
         $expires = new \DateTime($resource->getHeader('Expires')[0]);
         if (FileCache::check($source, $expires)) {
@@ -33,6 +33,7 @@ class FetchCommand extends Command
             exit;
         }
 
+        $resource = $this->Canaillou->fetch();
         FileCache::store($source, array(
             'id'      => str_replace('"', '', $resource->getHeader('Etag')[0]),
             'expires' => $expires,

@@ -12,4 +12,12 @@ trait Downloadable
 
         return $res;
     }
+
+    public function check($url)
+    {
+        $client = new Client();
+        $res    = $client->request('HEAD', $url);
+
+        return $res;
+    }
 }

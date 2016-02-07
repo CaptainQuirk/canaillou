@@ -98,9 +98,13 @@ class Caniuse extends Base implements DriverInterface
         return end($parts);
     }
 
-    public function fetch()
+    public function fetch($check)
     {
-        $data = $this->download($this->baseUrl);
+        if (!$check) {
+          $data = $this->download($this->baseUrl);
+        } else {
+          $data = $this->check($this->baseUrl);
+        }
 
         return $data;
     }

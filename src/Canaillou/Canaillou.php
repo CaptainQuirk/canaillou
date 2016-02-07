@@ -19,9 +19,9 @@ class Canaillou
         return $results;
     }
 
-    public function fetch()
+    public function fetch($check = false)
     {
-        $resource = $this->Driver->fetch();
+        $resource = $this->Driver->fetch($check);
 
         return $resource;
     }
