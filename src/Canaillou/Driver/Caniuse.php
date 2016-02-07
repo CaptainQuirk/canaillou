@@ -36,7 +36,7 @@ class Caniuse extends Base implements DriverInterface
     public function parse($data, $filters)
     {
         $items = array();
-        $i = 0;
+        $i     = 0;
         foreach ($data['stats'] as $browser => $stats) {
             if (isset($filters['browser']) && $browser !== $filters['browser']) {
                 continue;
@@ -47,9 +47,28 @@ class Caniuse extends Base implements DriverInterface
                 'items' => array()
             );
 
-            foreach ($stats as $version => $value) {
+            $st = $stats;
+            uksort($st, function($a, $b) {
+                $a = (float)$a;
+                $b = (float)$b;
+
+                if ($b > $a) {
+                    return 1;
+                } else if ($b < $a) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            });
+
+            $j = 0;
+            foreach ($st as $version => $value) {
                 if (isset($filters['version']) && $version != $filters['version']) {
                     continue;
+                }
+
+                if ($j > 6) {
+                    break;
                 }
 
                 $items[$i]['items'][] = array(
@@ -57,8 +76,9 @@ class Caniuse extends Base implements DriverInterface
                     'value'   => $value === 'y' ? 1 : 0,
                     'current' => false
                 );
-            }
 
+                $j++;
+            }
 
             $i++;
         }
