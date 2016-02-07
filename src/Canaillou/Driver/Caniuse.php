@@ -12,21 +12,6 @@ class Caniuse extends Base implements DriverInterface
 
     public function __construct() {}
 
-    public function get($feature = '', $params = array())
-    {
-        if (empty($feature)) {
-            throw new \Exception("Missing or empty feature parameter");
-        }
-
-        $url = $this->url($feature);
-
-        $client = new Client();
-        $res    = $client->request('GET', $url);
-        $data   = json_decode((string)$res->getBody(), true);
-
-        return $data;
-    }
-
     public function url($feature = '', $params = array())
     {
        $url = "{$this->baseUrl}/{$feature}.json";
