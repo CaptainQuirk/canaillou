@@ -35,23 +35,65 @@ class Caniuse extends Base implements DriverInterface
 
     public function parse($data, $filters)
     {
-        $browser = isset($filters['browser']) ? $filters['browser'] : null;
+        $items = array();
+        $i     = 0;
+        foreach ($data['stats'] as $browser => $stats) {
+            if (isset($filters['browser']) && $browser !== $filters['browser']) {
+                continue;
+            }
 
-        if (is_null($browser)) {
-            return $data['stats'];
+            $items[$i] = array(
+                'name'  => $browser,
+                'items' => array()
+            );
+
+            $st = $stats;
+            uksort($st, function($a, $b) {
+                $a = (float)$a;
+                $b = (float)$b;
+
+                if ($b > $a) {
+                    return 1;
+                } else if ($b < $a) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            });
+
+            $j = 0;
+            foreach ($st as $version => $value) {
+                if (isset($filters['version']) && $version != $filters['version']) {
+                    continue;
+                }
+
+                if ($j > 6) {
+                    break;
+                }
+
+                $items[$i]['items'][] = array(
+                    'label'   => $this->formatNumber($version),
+                    'value'   => $value === 'y' ? 1 : 0,
+                    'current' => false
+                );
+
+                $j++;
+            }
+
+            $i++;
         }
 
-        $result = [ "{$browser}" => $data['stats']["{$browser}"] ];
-        $version = isset($filters['version']) ? $filters['version'] : null;
+        return $items;
+    }
 
-        if (is_null($version)) {
-            return $result;
+    private function formatNumber($number)
+    {
+        if (!preg_match('#[0-9]+\.[0-9]+-#', $number)) {
+            return $number;
         }
 
-        $result = [ "{$browser}" => [
-          $version => $result["{$browser}"][$version]
-        ]];
+        $parts = explode('-', $number);
 
-        return $result;
+        return end($parts);
     }
 }
