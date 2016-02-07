@@ -37,7 +37,7 @@ class FileCache
         return static::$instance;
     }
 
-    public static function store($key, $resource)
+    public static function store($key, $data)
     {
         $filename = "{$path}_{$data['id']}";
         static::$fs->write($filename, serialize($data));
