@@ -39,7 +39,7 @@ class FileCache
 
     public static function store($key, $data)
     {
-        $filename = "{$path}_{$data['id']}";
+        $filename = "{$key}_{$data['id']}";
         static::$fs->write($filename, serialize($data));
     }
 
