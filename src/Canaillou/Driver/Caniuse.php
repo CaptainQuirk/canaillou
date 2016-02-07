@@ -3,11 +3,11 @@ namespace Canaillou\Driver;
 
 use Canaillou\Driver\Base;
 use Canaillou\Driver\DriverInterface;
-use GuzzleHttp\Client;
 
 class Caniuse extends Base implements DriverInterface
 {
-    public $baseUrl = 'https://raw.githubusercontent.com/Fyrd/caniuse/master/features-json';
+    use \Canaillou\Network\Downloadable;
+
 
     public function __construct() {}
 
