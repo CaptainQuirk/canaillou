@@ -14,13 +14,6 @@ class Caniuse extends Base implements DriverInterface
 
     public function __construct() {}
 
-    public function url($feature = '', $params = array())
-    {
-       $url = "{$this->baseUrl}/{$feature}.json";
-
-       return $url;
-    }
-
     public function parse($data, $filters)
     {
         $items = array();
