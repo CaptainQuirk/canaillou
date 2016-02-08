@@ -16,5 +16,8 @@
         "psr-4": {
             "Canaillou\\": "src/Canaillou"
         }
+    },
+    "scripts": {
+        "post-install-cmd": "Canaillou\\Installer\\ScriptRegistry::postInstall"
     }
 }

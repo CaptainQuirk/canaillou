@@ -39,6 +39,7 @@ class FileCache
 
     public static function store($key, $data)
     {
+        $instance = static::getInstance();
         $filename = "{$key}_{$data['id']}";
 
         if ($data['type'] === 'json') {
