@@ -14,7 +14,6 @@ final class ScriptRegistry
 
         foreach ($supportedDrivers as $driver) {
             $canaillou = new Canaillou([ 'source' => $driver ]);
-            $canaillou = new Canaillou([ 'source' => 'caniuse' ]);
             $canaillou->fetch();
         };
     }
