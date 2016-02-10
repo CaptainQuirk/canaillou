@@ -19,13 +19,15 @@ class Caniuse extends Base implements DriverInterface
     {
         $items = array();
         $i     = 0;
+
+        $browserNames = $this->browsers();
         foreach ($data['stats'] as $browser => $stats) {
             if (isset($filters['browsers']) && !in_array($browser, $filters['browsers'])) {
                 continue;
             }
 
             $items[$i] = array(
-                'name'  => $browser,
+                'name'  => $browserNames[$browser],
                 'items' => array()
             );
 
@@ -66,6 +68,17 @@ class Caniuse extends Base implements DriverInterface
         }
 
         return $items;
+    }
+
+    public function browsers()
+    {
+        $results = array();
+
+        foreach ($this->data['agents'] as $id => $details) {
+            $results[$id] = $details['browser'];
+        }
+
+        return $results;
     }
 
     private function formatNumber($number)
