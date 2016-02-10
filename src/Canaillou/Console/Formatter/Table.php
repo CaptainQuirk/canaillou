@@ -15,25 +15,52 @@ class Table implements OutputInterface
         return $out;
     }
 
-    private function getColor($featureSupport)
+    private function getBgColor($featureSupport, $current)
     {
         $color = null;
 
+        if ($current) {
+            return 'white';
+        }
+
         switch ($featureSupport) {
             case 0:
-                $color = Colors::RED;
+                $color = 'red';
                 break;
 
             case 0.5:
-                $color = Colors::YELLOW;
+                $color = 'yellow';
                 break;
 
             case 1:
-                $color = Colors::GREEN;
+                $color = 'green';
                 break;
         }
 
         return $color;
+    }
+
+    private function getFgColor($featureSupport, $current)
+    {
+        if (!$current) {
+            return 'white';
+        }
+
+        switch ($featureSupport) {
+            case 0:
+                $color = 'red';
+                break;
+
+            case 0.5:
+                $color = 'yellow';
+                break;
+
+            case 1:
+                $color = 'green';
+                break;
+        }
+
+        return "{$color}+bold";
     }
 
     private function line($line)
@@ -43,10 +70,11 @@ class Table implements OutputInterface
         $paddingTop    = '';
         $paddingBottom = '';
         foreach ($line['items'] as $item) {
-            $color           = $this->getColor($item['value']);
-            $versionStr     .= Colors::colorize(str_pad($item['label'], 6, " ", STR_PAD_BOTH), 'white', $color) . " ";
-            $paddingTop     .= Colors::colorize("      " , 'white', $color) . " ";
-            $paddingBottom  .= Colors::colorize("      ", 'white', $color) . " ";
+            $bgColor = $this->getBgColor($item['value'], $item['current']);
+            $fgColor = $this->getFgColor($item['value'], $item['current']);
+            $versionStr     .= Colors::colorize(str_pad($item['label'], 6, " ", STR_PAD_BOTH), $fgColor, $bgColor) . " ";
+            $paddingTop     .= Colors::colorize("      " , $fgColor, $bgColor) . " ";
+            $paddingBottom  .= Colors::colorize("      ", $fgColor, $bgColor) . " ";
         }
 
         $browser = str_pad($line['name'], 8, " ", STR_PAD_BOTH);
