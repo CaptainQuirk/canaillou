@@ -5,13 +5,15 @@ use Canaillou\Cache\FileCache;
 
 abstract class Base
 {
+    public $data;
+
     public function __construct() {}
 
     public function get($item)
     {
-        $data = FileCache::read($this->name);
+        $this->data = FileCache::read($this->name);
 
-        return $data['data'][$item];
+        return $this->data['data'][$item];
     }
 
     public function query($item = null, $params = [])
