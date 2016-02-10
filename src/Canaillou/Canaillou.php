@@ -18,7 +18,7 @@ class Canaillou
         }
 
         $results = $this->Driver->query($options['feature'], [
-          'browser' => isset($options['browser']) ? $options['browser'] : null,
+          'browsers' => isset($options['browsers']) ? explode(',', $options['browsers']) : array(),
           'version' => isset($options['version']) ? $options['version'] : null
         ]);
 

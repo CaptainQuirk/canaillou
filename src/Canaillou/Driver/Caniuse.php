@@ -20,7 +20,7 @@ class Caniuse extends Base implements DriverInterface
         $items = array();
         $i     = 0;
         foreach ($data['stats'] as $browser => $stats) {
-            if (isset($filters['browser']) && $browser !== $filters['browser']) {
+            if (isset($filters['browsers']) && !in_array($browser, $filters['browsers'])) {
                 continue;
             }
 
