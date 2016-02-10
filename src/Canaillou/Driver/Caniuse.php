@@ -68,6 +68,17 @@ class Caniuse extends Base implements DriverInterface
         return $items;
     }
 
+    public function browsers()
+    {
+        $results = array();
+
+        foreach ($this->data['agents'] as $id => $details) {
+            $results[$id] = $details['browser'];
+        }
+
+        return $results;
+    }
+
     private function formatNumber($number)
     {
         if (!preg_match('#[0-9]+\.[0-9]+-#', $number)) {
