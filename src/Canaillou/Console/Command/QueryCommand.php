@@ -18,10 +18,7 @@ class QueryCommand extends Command
 {
     public function execute(array $args, array $options = array())
     {
-        if (empty($options['source'])) {
-            throw new \Exception("Missing or empty source option");
-        }
-        $source = $options['source'];
+        $source = isset($options['source']) ? $options['source'] : 'caniuse';
         unset($options['source']);
 
         if (empty($options['feature'])) {
