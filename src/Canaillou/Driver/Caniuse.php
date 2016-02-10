@@ -11,7 +11,7 @@ class Caniuse extends Base implements DriverInterface
     public $name     = 'caniuse';
     public $dataType = 'json';
 
-    public $baseUrl = 'https://raw.githubusercontent.com/Fyrd/caniuse/master/data.json';
+    public $baseUrl = 'https://raw.githubusercontent.com/Fyrd/caniuse/master/fulldata-json/data-2.0.json';
 
     public function __construct() {}
 
