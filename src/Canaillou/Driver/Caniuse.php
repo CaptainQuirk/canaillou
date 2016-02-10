@@ -55,10 +55,11 @@ class Caniuse extends Base implements DriverInterface
                     break;
                 }
 
+                $current = $this->data['agents'][$browser]['current_version'] == $version;
                 $items[$i]['items'][] = array(
                     'label'   => $this->formatNumber($version),
                     'value'   => $value === 'y' ? 1 : 0,
-                    'current' => false
+                    'current' => $current
                 );
 
                 $j++;
